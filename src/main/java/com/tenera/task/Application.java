@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @EntityScan("com.tenera.model")
-@ComponentScan({ "com.tenera.controller", "com.tenera.service" })
+@ComponentScan({ "com.tenera.controller", "com.tenera.service", "com.tenera.task" })
 @SpringBootApplication
 public class Application {
 

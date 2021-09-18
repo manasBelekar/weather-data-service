@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS public.weather(
   weather_desc VARCHAR(255),
   city_id NUMERIC,
   city_name VARCHAR(255),
-  timestamp timestamp NOT NULL,
+  timestamp NUMERIC NOT NULL,
+  CONSTRAINT unq_weather_record UNIQUE (city_id, timestamp)
 );

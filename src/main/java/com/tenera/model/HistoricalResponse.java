@@ -2,16 +2,21 @@ package com.tenera.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @ToString @AllArgsConstructor
+@Getter @Setter @ToString @AllArgsConstructor @NoArgsConstructor
 public class HistoricalResponse {
-	private int avg_temp;
+	@JsonProperty("avg_temp")
+	private double avgTtemp;
 	
-	private int avg_pressure;
+	@JsonProperty("avg_pressure")
+	private double avgPressure;
 	
 	private List<WeatherResponse> history;
 }

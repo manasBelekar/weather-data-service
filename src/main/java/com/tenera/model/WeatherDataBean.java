@@ -2,53 +2,18 @@ package com.tenera.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class WeatherDataBean {
-	private int cityId;
+	private int id;
+	private long cityId;
 	private String cityName;
 	private double temp;
-	private int pressure;
-	private int weatherId;
-	private String description;
-	
-//	@JsonIgnore
-//	private Coord coord;
-//	private Weather weather;
-//	private String base;
-//	private Main main;
-//	private int timezone;
-//	private int id;
-//	private String name;
-//	private int cod;
-//}
-//
-//@Getter @Setter @AllArgsConstructor
-//class Main{
-//	private double temp;
-//	private int pressure;
-//	@JsonIgnore
-//	private double feels_like;
-//	@JsonIgnore
-//	private double temp_min;
-//	@JsonIgnore
-//	private double temp_max;
-//	@JsonIgnore
-//	private int humidity;
-//}
-//
-//@Getter @Setter @AllArgsConstructor
-//class Weather{
-//	private int id;
-//	private String main;
-//	private String description;
-//	@JsonIgnore
-//	private String icon;
+	private boolean umbrella;
+	private long pressure;
+	private long weatherGroupId;
+	private long timestamp;
+	private String weatherDescription;
 }
-
-//@Getter @Setter @AllArgsConstructor
-//class Coord{
-//	private double lat;
-//	private double lon;
-//}

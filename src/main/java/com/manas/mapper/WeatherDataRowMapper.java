@@ -20,7 +20,8 @@ public class WeatherDataRowMapper implements RowMapper<WeatherDataBean> {
         weather.setWeatherDescription(rs.getString(6));
         weather.setCityId(rs.getLong(7));
         weather.setCityName(rs.getString(8));
-        weather.setTimestamp(rs.getLong(9));
+        weather.setCountryCode(rs.getString(9));
+        weather.setTimestamp(rs.getLong(10));
         return weather;
 	}
 

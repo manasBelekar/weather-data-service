@@ -10,6 +10,7 @@ public class WeatherDataBean {
 	private int id;
 	private long cityId;
 	private String cityName;
+	private String countryCode;
 	private double temp;
 	private boolean umbrella;
 	private long pressure;

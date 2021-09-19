@@ -29,13 +29,15 @@ public class WeatherDao {
 	public static final String GENERIC_DB_OPERATION_ERROR = "Error while performing DB operation for Service";
 
 	private static final String WEATHER_DATA_INSERT_QUERY = String.format(
-			"INSERT INTO %s (temp, pressure, umbrella, weather_id, weather_desc, city_id, city_name, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+			"INSERT INTO %s (temp, pressure, umbrella, weather_id, weather_desc, city_id, city_name, country_code, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
 			WEATHER_DATA_TABLE);
 
 	private static final String WEATHER_GET_HISTORICAL_DATA_BY_CITY_NAME_QUERY = String
 			.format("SELECT * FROM %s Where city_name =? ", WEATHER_DATA_TABLE);
 
 	private static final String ORDER_BY_DESC_CLAUSE = " order by id desc";
+
+	private static final String COUNTRY_CODE_FILTER = " AND country_code =? ";
 
 	/**
 	 * @param weatherBean
@@ -51,7 +53,8 @@ public class WeatherDao {
 				ps.setObject(5, weatherBean.getWeatherDescription());
 				ps.setObject(6, weatherBean.getCityId());
 				ps.setObject(7, weatherBean.getCityName());
-				ps.setObject(8, weatherBean.getTimestamp());
+				ps.setObject(8, weatherBean.getCountryCode());
+				ps.setObject(9, weatherBean.getTimestamp());
 			});
 			logger.info("Record inserted");
 			return weatherBean;
@@ -62,10 +65,10 @@ public class WeatherDao {
 			logger.error(e.getMessage(), e);
 			throw new RuntimeException(GENERIC_DB_OPERATION_ERROR, e);
 		}
-		//else return the latest record from DB
+		// else return the latest record from DB
 		return getHistoricalData(weatherBean.getCityName(), 1).get(0);
 	}
-	
+
 	/**
 	 * @param cityName
 	 * @return list of latest 5 records from DB
@@ -76,17 +79,30 @@ public class WeatherDao {
 
 	/**
 	 * @param cityName
-	 * @param no of records to be returned
+	 * @param no       of records to be returned
 	 * @return returns list of records for given city
 	 */
 	private List<WeatherDataBean> getHistoricalData(String cityName, int limit) {
-		String query = WEATHER_GET_HISTORICAL_DATA_BY_CITY_NAME_QUERY + ORDER_BY_DESC_CLAUSE + " limit " + limit;
+		String[] cityDetails = cityName.split(",");
+		String query = "";
+		if (cityDetails.length > 1) {
+			query = WEATHER_GET_HISTORICAL_DATA_BY_CITY_NAME_QUERY + COUNTRY_CODE_FILTER + ORDER_BY_DESC_CLAUSE
+					+ " limit " + limit;
+		} else {
+			query = WEATHER_GET_HISTORICAL_DATA_BY_CITY_NAME_QUERY + ORDER_BY_DESC_CLAUSE + " limit " + limit;
+		}
+
 		try {
 			return jdbcTemplate.query(query, new PreparedStatementSetter() {
 
 				@Override
 				public void setValues(PreparedStatement ps) throws SQLException {
-					ps.setObject(1, cityName);
+					if (cityDetails.length > 1) {
+						ps.setObject(1, cityDetails[0]);
+						ps.setObject(2, cityDetails[1].toUpperCase());
+					} else {
+						ps.setObject(1, cityName);
+					}
 				}
 
 			}, new WeatherDataRowMapper());

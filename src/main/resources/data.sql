@@ -9,6 +9,14 @@ CREATE TABLE IF NOT EXISTS public.weather(
   weather_desc VARCHAR(255),
   city_id NUMERIC,
   city_name VARCHAR(255),
+  country_code VARCHAR(20),
   timestamp NUMERIC NOT NULL,
   CONSTRAINT unq_weather_record UNIQUE (city_id, timestamp)
 );
+
+
+--Test data for check
+insert into weather values (10001,15.33,1008,FALSE,801,'few clouds',2950159,'Berlin','DE',1632060361);
+insert into weather values (10002,15.35,1008,FALSE,801,'few clouds',2950159,'Berlin','DE',1632061152);
+insert into weather values (10003,15.34,1008,FALSE,801,'few clouds',2950159,'Berlin','DE',1632061470);
+

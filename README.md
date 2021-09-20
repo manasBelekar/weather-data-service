@@ -159,12 +159,12 @@ We have weather data service that provides a bunch of information.
 
     $ mvn install
 
-### Run
+### Run Locally
 
     $ java -jar weather-data-service-0.0.1-SNAPSHOT.jar
     
    
-### Swagger documentation available at
+### Swagger documentation available at (locally)
    
    http://localhost:8000/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/
    
@@ -172,7 +172,7 @@ We have weather data service that provides a bunch of information.
    sample data added for City 'Berlin' is prepopulated for historical API calculation
    ```
    
-### Server
+### Server (locally)
    
    The Application starts a tomcat server on localhost port 8080 with some sample data
    
@@ -188,6 +188,12 @@ We have weather data service that provides a bunch of information.
 - 404 Not Found
 - 500 Internal Server Error 
 
+### Docker
+    -Build (to be executed at project root level)
+    docker build -t weather-data-service .
+    
+    -run
+    docker run -it weather-data-service -p 8080:8080
 
 #### More information
 

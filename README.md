@@ -13,12 +13,6 @@ We have weather data service that provides a bunch of information.
 │   pom.xml
 │   README.md
 │
-├───.settings
-│       org.eclipse.core.resources.prefs
-│       org.eclipse.jdt.core.prefs
-│       org.eclipse.m2e.core.prefs
-│       org.springframework.ide.eclipse.prefs
-│
 ├───config
 │   ├───dev
 │   │       kustomization.yaml
@@ -113,6 +107,10 @@ We have weather data service that provides a bunch of information.
         │           ├───dao
         │           │       WeatherDaoTest.java
         │           │
+        │           ├───integration
+        │           │       data.sql
+        │           │       WeatherControllerIntegrationTest.java
+        │           │
         │           ├───service
         │           │       WeatherServiceTest.java
         │           │
@@ -199,10 +197,10 @@ We have weather data service that provides a bunch of information.
 
  - Externalized the openweather url, api key and unit (for easy configuration w/o code change) in application.properties file.
  - Swagger enabled for APIs for easy documentation and testing
- - code having coverage of ~80% at the time of deployment
+ - code having coverage of ~90% at the time of deployment, covered through series of unit and integration tests.
  - used inmemory H2 database, for storing the data. could be changed to file based DB or any other DB as well.
  - As weather data is not getting updated multiple times for same minute, modeled weatherData to have city_id and timestamp combination to be unique key in DB.
- - repeated record won't be stored to honor the unique constraint.
+   repeated record won't be stored to honor the unique constraint.
  - wrote DockerFile which actually build and deploy the our service to Docker.
  - Refer insfrastructure template for multi-environment deployment
 

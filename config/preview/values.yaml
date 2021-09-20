@@ -1,0 +1,8 @@
+environment: preview
+
+ingress:
+  hosts:
+    - host: project-pr.dev.borealis.studio
+  tls:
+    - hosts:
+        - project-pr.dev.borealis.studio

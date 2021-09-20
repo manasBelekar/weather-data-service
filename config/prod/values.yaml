@@ -1,0 +1,10 @@
+environment: production
+
+ingress:
+  hosts:
+    - host: project.prod.com
+  tls:
+    - secretName: wildcard-domain-certificate
+      hosts:
+        - project.prod.com
+

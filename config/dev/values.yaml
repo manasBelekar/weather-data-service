@@ -1,0 +1,7 @@
+environment: develop
+ingress:
+  hosts:
+    - host: project.dev.com
+  tls:
+    - hosts:
+        - project.dev.com

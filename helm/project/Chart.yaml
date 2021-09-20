@@ -1,0 +1,15 @@
+apiVersion: v2
+appVersion: 1.16.0
+description: project helm
+name: project
+version: 0.0.1
+dependencies:
+  - condition: oauth2-proxy.enabled
+    name: oauth2-proxy
+    repository: "@k8s-at-home"
+    version: 5.0.4
+  - condition: redis.enabled
+    name: redis
+    repository: "@bitnami"
+    version: 10.7.13
+

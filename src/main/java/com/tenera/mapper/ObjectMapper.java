@@ -1,4 +1,4 @@
-package com.manas.mapper;
+package com.tenera.mapper;
 
 public interface ObjectMapper<X, Y> {
 

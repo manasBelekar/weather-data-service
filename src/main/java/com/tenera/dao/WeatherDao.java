@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
-import com.manas.mapper.WeatherDataRowMapper;
+import com.tenera.mapper.WeatherDataRowMapper;
 import com.tenera.model.WeatherDataBean;
 
 @Repository

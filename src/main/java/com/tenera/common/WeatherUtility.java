@@ -11,7 +11,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,7 +19,7 @@ import com.tenera.model.WeatherDataBean;
 
 @Component
 public class WeatherUtility {
-	
+
 	@Value("${openweather.api.baseurl}")
 	private String apiBaseUrl;
 
@@ -32,10 +31,10 @@ public class WeatherUtility {
 
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	/**
 	 * @param cityName
-	 * @return
+	 * @return response by calling REST API exposed by openWaether platform
 	 */
 	public WeatherDataBean getCurrentWeather(String cityName) {
 		HttpHeaders headers = new HttpHeaders();
@@ -47,31 +46,26 @@ public class WeatherUtility {
 		HttpEntity<?> entity = new HttpEntity<>(headers);
 
 		HttpEntity<String> response;
-//		try {
-			response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
-					String.class);
-			return parseResponse(response.getBody());
-//		} catch (RestClientException e) {
-//			throw new RuntimeException("Exception while executing REST call: "+e.getMessage());
-//		}
+		response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, String.class);
+		return parseResponse(response.getBody());
 	}
 
 	/**
 	 * @param response
-	 * @return
+	 * @return weatherdataBean from response
 	 */
-	public WeatherDataBean parseResponse(String response) {
+	private WeatherDataBean parseResponse(String response) {
 		// creating an object of JSONObject and casting the object into JSONObject type
 		JSONObject jsonObject = (JSONObject) JSONValue.parse(response);
 		boolean umbrella = false;
 
 		// getting values form JSONObject and casting values into corresponding types
 		long statusCode = (long) jsonObject.get("cod");
-		
-		if(statusCode==HttpStatus.NOT_FOUND.value()) {
+
+		if (statusCode == HttpStatus.NOT_FOUND.value()) {
 			throw new RuntimeException("City Not Found");
 		}
-		
+
 		long cityId = (long) jsonObject.get("id");
 		String name = (String) jsonObject.get("name");
 		long timestamp = (long) jsonObject.get("dt");

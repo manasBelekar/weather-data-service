@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.client.RestClientException;
 
+import com.tenera.exception.InvalidCityException;
+
 public class ControllerAdvisorTest {
 	
     @InjectMocks
@@ -26,6 +28,13 @@ public class ControllerAdvisorTest {
     	RestClientException cityNotFoundException = new RestClientException("dummy");
         ResponseEntity<Object> response = controllerAdvice.handleCityNotFoundException(cityNotFoundException, new MockHttpServletRequest());
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+    
+    @Test
+    public void testHandleInvalidCityException() {
+    	InvalidCityException invalidCityException = new InvalidCityException("Not a valid city");
+        ResponseEntity<Object> response = controllerAdvice.handleInvalidCityException(invalidCityException, new MockHttpServletRequest());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
 }

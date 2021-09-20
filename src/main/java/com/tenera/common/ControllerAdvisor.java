@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestClientException;
 
+import com.tenera.exception.InvalidCityException;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +32,16 @@ public class ControllerAdvisor {
 		return new ResponseEntity<>(
 				new ApiError(ZonedDateTime.now(Clock.systemUTC()), HttpStatus.NOT_FOUND.value(), "City Not Found."),
 				HttpStatus.NOT_FOUND);
+	}
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler({ InvalidCityException.class })
+	public ResponseEntity<Object> handleInvalidCityException(InvalidCityException invalidCityException,
+			HttpServletRequest request) {
+		logger.error("Not a valid city", invalidCityException);
+		return new ResponseEntity<>(
+				new ApiError(ZonedDateTime.now(Clock.systemUTC()), HttpStatus.NOT_FOUND.value(), "Not a valid city."),
+				HttpStatus.BAD_REQUEST);
 	}
 
 }

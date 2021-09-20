@@ -1,4 +1,4 @@
-package com.manas.mapper;
+package com.tenera.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

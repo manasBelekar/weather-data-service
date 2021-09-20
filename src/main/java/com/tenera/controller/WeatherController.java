@@ -39,6 +39,8 @@ public class WeatherController {
 	@Operation(summary = "Get historical weather statistics", tags = WEATHER_TAG)
 	@GetMapping(value = "/history", produces = JSON)
 	public ResponseEntity<HistoricalResponse> getHistoricalWeatherData(@RequestParam("location") String cityName) {
+		if(cityName==null || cityName.isEmpty())
+			throw new InvalidCityException("Not a valid city");
 		HistoricalResponse response = service.getHistoricalWeatherData(cityName);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

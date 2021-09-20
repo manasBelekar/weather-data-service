@@ -7,10 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.manas.mapper.WeatherBeanToHIstoricalResponseMapper;
-import com.manas.mapper.WeatherBeanToWeatherResponseMapper;
 import com.tenera.common.WeatherUtility;
 import com.tenera.dao.WeatherDao;
+import com.tenera.mapper.WeatherBeanToHIstoricalResponseMapper;
+import com.tenera.mapper.WeatherBeanToWeatherResponseMapper;
 import com.tenera.model.HistoricalResponse;
 import com.tenera.model.WeatherDataBean;
 import com.tenera.model.WeatherResponse;
@@ -59,9 +59,7 @@ public class WeatherService {
 		// query the store for previously queried data
 		List<WeatherDataBean> weatherDataList = weatherDao.getHistoricalData(cityName);
 
-		// calculate for transformations
-
-		// return the response
+		// calculate for transformations and return the response
 		logger.info("Exiting getHistoricalWeatherData");
 		return hIstoricalResponseMapper.mapSourceToTargetObject(weatherDataList, null);
 	}

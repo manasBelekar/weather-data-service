@@ -14,10 +14,10 @@ import org.mockito.Spy;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
-import com.manas.mapper.WeatherBeanToHIstoricalResponseMapper;
-import com.manas.mapper.WeatherBeanToWeatherResponseMapper;
 import com.tenera.common.WeatherUtility;
 import com.tenera.dao.WeatherDao;
+import com.tenera.mapper.WeatherBeanToHIstoricalResponseMapper;
+import com.tenera.mapper.WeatherBeanToWeatherResponseMapper;
 import com.tenera.model.HistoricalResponse;
 import com.tenera.model.WeatherDataBean;
 import com.tenera.model.WeatherResponse;
@@ -71,27 +71,4 @@ public class WeatherServiceTest {
 		HistoricalResponse result = service.getHistoricalWeatherData("Berlin");
 		Assert.assertNotNull(result);
 	}
-//
-//	@Test
-//	public void testGetAlertsById() {
-//		Mockito.when(dao.getAlertsById(Mockito.any(UUID.class))).thenReturn(sensorList);
-//		String result = service.getAlertsById(UUID.randomUUID());
-//		Assert.assertNotNull(result);
-//	}
-//
-//	@Test
-//	public void testGetMetricsById() {
-//		Mockito.when(dao.getMetricsById(Mockito.any(UUID.class))).thenReturn(sensorList);
-//		MetricsResponse result = service.getMetricsById(UUID.randomUUID());
-//		Assert.assertNotNull(result);
-//		Assert.assertEquals(0, 2000, result.getAvgLast30Days());
-//		Assert.assertEquals(0, 2100, result.getMaxLast30Days());
-//	}
-//
-//	@Test(expected = NoRecordsFoundException.class)
-//	public void testGetStausByIdWhenNoData() {
-//		Mockito.when(dao.getStausById(Mockito.any(UUID.class))).thenReturn(null);
-//		service.getStausById(UUID.randomUUID());
-//	}
-
 }

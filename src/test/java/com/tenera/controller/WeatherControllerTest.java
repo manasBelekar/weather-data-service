@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
+import com.tenera.exception.InvalidCityException;
 import com.tenera.model.HistoricalResponse;
 import com.tenera.model.WeatherResponse;
 import com.tenera.service.WeatherService;
@@ -40,6 +41,16 @@ public class WeatherControllerTest {
 		ResponseEntity<HistoricalResponse> result = controller.getHistoricalWeatherData("Berlin");
 		Assert.assertEquals("OK", result.getStatusCode().name());
 		Assert.assertEquals(200, result.getStatusCode().value());
+	}
+	
+	@Test(expected = InvalidCityException.class)
+	public void testGetCurrentWeatherWhenNullData() {
+		controller.getCurrentWeather(null);
+	}
+	
+	@Test(expected = InvalidCityException.class)
+	public void testGetHistoricalWeatherDataWhenNoData() {
+		controller.getHistoricalWeatherData("");
 	}
 
 }

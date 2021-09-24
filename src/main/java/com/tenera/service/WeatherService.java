@@ -46,6 +46,7 @@ public class WeatherService {
 
 		// prepare and return the response
 		logger.info("Exiting getCurrentWeatherData");
+		logger.info(weatherObj.toString());
 		return weatherResponseMapper.mapSourceToTargetObject(weatherObj, null);
 	}
 
